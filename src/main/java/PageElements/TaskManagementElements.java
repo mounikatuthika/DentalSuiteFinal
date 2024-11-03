@@ -157,10 +157,11 @@ WebElement more;
         reusable.calander(startCaland,datearrow,yearslist,monthlist,datelist, year,month,date);
    }
    public void duedate(String Dyear,String Dmonth,String Ddate){
-       JavascriptExecutor js = (JavascriptExecutor) driver;
+      // JavascriptExecutor js = (JavascriptExecutor) driver;
        // First, scroll to the bottom of the page
-       js.executeScript("window.scrollBy(0,500)");
-       js.executeScript("arguments[0].scrollIntoView();", duecal);
+      // js.executeScript("window.scrollBy(0,500)");
+      // js.executeScript("arguments[0].scrollIntoView();", duecal);
+       wait.waitele(6000);
         reusable.calander(duecal,duearrow,dueyearslist,duemonthlist,duedatelist,Dyear,Dmonth,Ddate);
    }
    public void setpriority(String Visibletxt) throws InterruptedException {
@@ -285,6 +286,32 @@ public void logoutApp(){
         wait.waitele(6000);
         mytask.click();
     }
+    public void RAssignname(String text, String Vtext,String comment1) throws InterruptedException {
+        wait.waitforElement(morebutton,30);
+        morebutton.click();
+        wait.waitforElement(reassign,30);
+        reassign.click();
+        wait.waitforElement(select, 30);
+        select.click();
+        wait.waitele(6000);
+        wait.waitforElement(search, 30);
+        search.sendKeys(text);
+        Thread.sleep(10000);
+        wait.waitForElements(assigneelist, 30);
+        for (int i = 0; i < assigneelist.size(); i++) {
+            if (assigneelist.get(i).getText().equalsIgnoreCase(Vtext)) {
+                assigneelist.get(i).click();
+                break;
+            }
+        }
+        wait.waitforElement(assigneesave, 30);
+        assigneesave.click();
+        wait.waitele(5000);
+        comment.sendKeys(comment1);
+        wait.waitforElement(Saveb,30);
+        Saveb.click();
+        wait.waitele(3000);
 
+    }
 
 }
