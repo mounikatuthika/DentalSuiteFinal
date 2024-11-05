@@ -3,6 +3,7 @@ package Stepdefinitions;
 import Base.BaseClass;
 import PageElements.LogingPageElements;
 import PageElements.TaskManagementElements;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.*;
@@ -12,6 +13,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.awt.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
@@ -19,32 +22,49 @@ import java.util.Map;
 import java.util.Properties;
 
 public class Stepdefintions2 extends BaseClass {
-    @Before
-    public void setup() throws IOException {
-        logger= LogManager.getLogger(Stepdefintions2.class);
-        // Reading properties
-        configprop=new Properties();
-        FileInputStream configpropfile=new FileInputStream("C:\\Users\\MounikaTuthika-Kairo\\IdeaProjects\\DentalSuite (3)\\DentalSuiteFinal\\src\\main\\resources\\Config.properties");
-        configprop.load(configpropfile);
-        //String br="chrome";
-        String br=configprop.getProperty("browser");
-        if(br.equals("chrome")) {
-            driver = new ChromeDriver();
+//    @Before
+//    public void setup() throws IOException {
+//        logger= LogManager.getLogger(Stepdefintions2.class);
+//        // Reading properties
+//        configprop=new Properties();
+//        FileInputStream configpropfile=new FileInputStream("C:\\Users\\MounikaTuthika-Kairo\\IdeaProjects\\DentalSuite (3)\\DentalSuiteFinal\\src\\main\\resources\\Config.properties");
+//        configprop.load(configpropfile);
+//        String br=configprop.getProperty("browser");
+//        if(br.equals("chrome")) {
+//            driver = new ChromeDriver();
+//        }
+//        else if(br.equals("edge")) {
+//            driver = new EdgeDriver();
+//        }
+//        else if(br.equals("firefox")) {
+//            driver = new FirefoxDriver();
+//        }
+//        else{
+//            System.out.println("invalid browser");
+//        }
+//        lp=new LogingPageElements(driver);
+//    }
+    @After
+    public void tearDown(){
+        driver.quit();
+        String reportPath = "/C:/Users/MounikaTuthika-Kairo/IdeaProjects/DentalSuite (3)/DentalSuiteFinal/test-output/index.html"; // Adjust this path based on your configuration
+
+        // Open the report in the default browser
+        try {
+            File reportFile = new File(reportPath);
+            Desktop.getDesktop().browse(reportFile.toURI());
+        } catch (IOException e) {
+            e.printStackTrace(); // Print the stack trace for debugging
         }
-        else if(br.equals("edge")) {
-            driver = new EdgeDriver();
-        }
-        else if(br.equals("firefox")) {
-            driver = new FirefoxDriver();
-        }
-        else{
-            System.out.println("invalid browser");
-        }
-        lp=new LogingPageElements(driver);
+
+
     }
+
 
     @Given("I enter the valid passcode for the admin user")
     public void i_enter_the_valid_passcode_for_the_admin_user() throws IOException {
+        logger= LogManager.getLogger(Stepdefintions2.class);
+        lp=new LogingPageElements(driver);
         logger.info("#######Enter passcode for khaja amin user######");
         lp.Excelreading("C:\\Users\\MounikaTuthika-Kairo\\IdeaProjects\\DentalSuite (3)\\DentalSuiteFinal\\src\\main\\resources\\Testdata\\Testdata.xlsx",1);
 
@@ -127,12 +147,17 @@ public class Stepdefintions2 extends BaseClass {
         Tm.Mytask();
     }
 
-    @And("I reassign the task to {string}and add comments to the task as {string} from pending list")
-    public void iReassignTheTaskToAndAddCommentsToTheTaskAsFromPendingList(String assignename, String comments) throws InterruptedException {
+//    @And("I reassign the task to {string}and add comments to the task as {string} from pending list")
+//    public void iReassignTheTaskToAndAddCommentsToTheTaskAsFromPendingList(String assignename, String comments) throws InterruptedException {
+//        logger.info("#######Reassign the task to alphapmalpa another practice manager######");
+//        Tm.RAssignname("alpha",assignename,comments);
+//
+//
+//    }
+    @And("I reassign the task to search user{string} and {string}and add comments to the task as {string} from pending list")
+    public void iReassignTheTaskToSearchUserAndAndAddCommentsToTheTaskAsFromPendingList(String Stext, String assignename, String comments) throws InterruptedException {
         logger.info("#######Reassign the task to alphapmalpa another practice manager######");
-        Tm.RAssignname("alpha",assignename,comments);
-
-
+        Tm.RAssignname(Stext,assignename,comments);
     }
 
     @And("Practice Manager logout of the application")
@@ -199,6 +224,7 @@ public class Stepdefintions2 extends BaseClass {
     public void i_verify_the_admin_assigned_task_is_present_in_my_task_list_with_the_title_in_the_finished_list(String Vtext) {
         logger.info("#######Verify whether task is finished or not######");
         Tm.Doneverification(Vtext);
+
     }
 
 

@@ -21,7 +21,7 @@ Feature: Task Management Workflow
     And Practice Manager click on notification list
     And verify the admin assigned task is present in my task list with the title "<tasktitle>"
     And  click on My Tasks
-    And I reassign the task to "<Assignname>"and add comments to the task as "<reassignComments>" from pending list
+    And I reassign the task to search user"<Stext>" and "<Assignname>"and add comments to the task as "<reassignComments>" from pending list
     And Practice Manager logout of the application
     And I enter the valid passcode for the admin user
     And I click on the login button
@@ -37,5 +37,5 @@ Feature: Task Management Workflow
     Then I verify the admin assigned task is present in my task list with the title "<tasktitle>" in the finished list
     And Practice Manager logout of the application
     Examples:
-      | tasktitle       | searchuser | selectuser         | startyear | startMonth | startdate | duedateyear | duedatemonth | duedatedate | priority | description   | reassignComments    | progressComment        | doneComment        | Assignname     |
-      | Dental Checkup1 | KhajaPM    | KhajaPmAlpha alpha | 2024      | NOV        | 4         | 2024        | NOV          | 5           | High     | Dentalcheckup | Iam unable to do it | Iam taking up the task | completed the task | alpha pm alpha |
+      | tasktitle       | searchuser | selectuser         | startyear | startMonth | startdate | duedateyear | duedatemonth | duedatedate | priority | description   | reassignComments    | progressComment        | doneComment        | Stext | Assignname              |
+      | Dental Checkup1 | KhajaPM    | KhajaPmAlpha alpha | 2024      | NOV        | 5         | 2024        | NOV          | 6           | High     | Dentalcheckup | Iam unable to do it | Iam taking up the task | completed the task | alpha | alpha pm alpha |
